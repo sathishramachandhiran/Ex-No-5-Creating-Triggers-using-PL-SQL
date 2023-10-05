@@ -14,11 +14,44 @@
 
 ### Program:
 ### Create employee table
-
+```sql
+CREATE TABLE employee ( empid NUMBER,empname VARCHAR(10), dept VARCHAR(10),salary NUMBER);
+```
 ### Create salary_log table
-
+```sql
+CREATE TABLE salary_log(log_id NUMBER GENERATED ALWAYS AS IDENTITY,empid NUMBER,
+empname VARCHAR(10),old_salary NUMBER,new_salary NUMBER,update_date DATE);
+```
 ### PLSQL Trigger code
+```sql
+CREATE OR REPLACE TRIGGER log_salary_update
+AFTER UPDATE ON employee
+FOR EACH ROW
+BEGIN
+  IF :OLD.salary <> :NEW.salary THEN
+    INSERT INTO salary_log (empid, empname, old_salary, new_salary, update_date)
+    VALUES (:OLD.empid, :OLD.empname, :OLD.salary, :NEW.salary, SYSDATE);
+  END IF;
+END;
+/
+```
+### Update and Display Code
+```sql
+UPDATE employee SET salary = 55000 WHERE empid = 1;
+SELECT * FROM employee;
+SELECT * FROM salary_log;
+```
 
 ### Output:
+![OUT](5a.png)
 
+![OUT](5b.png)
+
+![OUT](5c.png)
+```
+SUBMITTED BY :
+NAME : SATHISH R
+REGNO: 212222100048
+```
 ### Result:
+Thus,the Trigger is created using PL/SQL Successfully.
