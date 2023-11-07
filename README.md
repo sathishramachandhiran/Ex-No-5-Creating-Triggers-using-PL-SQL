@@ -44,9 +44,7 @@ SELECT * FROM salary_log;
 
 ### Output:
 ![OUT](5a.png)
-
 ![OUT](5b.png)
-
 ![OUT](5c.png)
 ```
 SUBMITTED BY :
